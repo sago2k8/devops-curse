@@ -1,0 +1,29 @@
+{
+  "variables": {
+    "build_number": "{{env `CIRCLE_BUILD_NUM`}}"
+  },
+  "builders": [
+    {
+    "type": "digitalocean",
+    "api_token": "ec81797896e327b2b03e5de5e77574d3cc2159e3459968298e13722364655328",
+    "image": "coreos-stable",
+    "region": "nyc3",
+    "size": "512mb",
+    "ssh_username": "core",
+    "snapshot_name": "platzi-demo-{{user `build_number`}}"
+    }
+  ],
+  "provisioners" : [
+    {
+      "type" : "shell",
+      "inline" : [
+        "git clone https://github.com/sago2k8/devops-curse.git",
+        "cd devops-curse",
+        "docker build -t platzi ."
+      ]
+    }
+
+  ]
+
+
+}
