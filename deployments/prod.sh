@@ -7,3 +7,4 @@ export TF_VAR_image_id=$(curl -H "Authorization: Bearer $DIGITALOCEAN_API_TOKEN"
 echo $TF_VAR_image_id
 cd infra && terraform apply && cd .. &&
 git add infra && git commit -m "Deployed $CIRCLE_BUILD_NUM [skip ci]" &&
+git push origin master
