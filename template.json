@@ -1,0 +1,24 @@
+{
+  "builders": [
+    {
+    "type": "digitalocean",
+    "image": "coreos-stable",
+    "region": "nyc3",
+    "size": "512mb",
+    "ssh_username": "core"
+    }
+  ],
+  "provisioners" : [
+    {
+      "type" : "shell",
+      "inline" : [
+        "git clone https://github.com/sago2k8/devops-curse.git",
+        "cd devops-curse",
+        "docker build -t platzi ."
+      ]
+    }
+
+  ]
+
+
+}
