@@ -24,12 +24,21 @@ resource "digitalocean_tag" "platzi-demo" {
 }
 
 resource "digitalocean_droplet" "platzi-demo" {
-  image  = "27272280"
+  count = 2
+  image  = "${var.image_id}"
   name   = "devops-curse"
   region = "nyc3"
   size   = "512mb"
   ssh_keys = ["5417706"]
   tags   = ["${digitalocean_tag.platzi-demo.id}"]
+
+  lifecycle {
+    create_before_destroy = true
+  }
+  provisioner "local-exec" {
+   command = "sleep 160 && curl ${self.ipv4_address}:3000"
+ }
+
   user_data = <<EOF
 #cloud-config
 coreos:
